@@ -8,7 +8,7 @@ const {
 
 const router = express.Router();
 
-// ✅ Log all route requests (for debugging)
+// ✅ Add logging inside the routes file
 router.use((req, res, next) => {
   console.log(`🔹 Route middleware: ${req.method} ${req.url}`);
   next();

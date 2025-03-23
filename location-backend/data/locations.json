@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Lot'sa",
+    "latitude": 41.956349620920605,
+    "longitude": -87.7229836746486,
+    "description": "Lot'sa Cafe"
+  },
+  {
+    "name": "Second Shift Coworking",
+    "latitude": 41.93220193962986,
+    "longitude": -87.7136649476653,
+    "description": "Second Shift Coworking"
+  },
+  {
+    "name": "Bang Bang Pie & Biscuits",
+    "latitude": 41.91916216899807,
+    "longitude": -87.69718730533778,
+    "description": "Bang Bang Pie & Biscuits"
+  }
+]

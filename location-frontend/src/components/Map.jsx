@@ -47,7 +47,7 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={10}
+        zoom={12}
         center={userLocation || defaultCenter} // Center on user if available
       >
         {/* Fetched location markers */}
@@ -58,15 +58,19 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           >
             <div
-              className={`transition-transform duration-300 transform ${
+              className={`w-14 h-14 rounded-full border-4 bg-white overflow-hidden flex items-center justify-center transition-transform duration-300 transform ${
                 hoveredLocationId === loc._id
-                  ? "scale-100 z-[1000]"
-                  : "scale-50 z-[1]"
-              } relative`}
+                  ? "scale-100 z-[1000] border-blue-500"
+                  : "scale-75 z-[1] border-gray-300"
+              }`}
               onMouseEnter={() => setHoveredLocationId(loc._id)}
               onMouseLeave={() => setHoveredLocationId(null)}
             >
-              <img src="/vite.svg" alt={loc.name} className="w-10 h-10" />
+              <img
+                src="/vite.svg" // You can change this to loc.image if each location has one
+                alt={loc.name}
+                className="w-full h-full object-cover"
+              />
             </div>
           </OverlayView>
         ))}

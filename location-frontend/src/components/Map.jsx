@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  OverlayView,
+} from "@react-google-maps/api";
 import { fetchLocations } from "../services/api";
 
-const Map = () => {
+const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
   const defaultCenter = { lat: 41.8781, lng: -87.6298 };
 
   const [locations, setLocations] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
+  const [hoveredMarker, setHoveredMarker] = useState(null);
 
   // Fetch stored locations from your API
   useEffect(() => {
@@ -46,11 +52,23 @@ const Map = () => {
       >
         {/* Fetched location markers */}
         {locations.map((loc, index) => (
-          <Marker
+          <OverlayView
             key={index}
             position={{ lat: loc.latitude, lng: loc.longitude }}
-            title={loc.name}
-          />
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <div
+              className={`transition-transform duration-300 transform ${
+                hoveredLocationId === loc._id
+                  ? "scale-100 z-[1000]"
+                  : "scale-50 z-[1]"
+              } relative`}
+              onMouseEnter={() => setHoveredLocationId(loc._id)}
+              onMouseLeave={() => setHoveredLocationId(null)}
+            >
+              <img src="/vite.svg" alt={loc.name} className="w-10 h-10" />
+            </div>
+          </OverlayView>
         ))}
 
         {/* User's location marker */}

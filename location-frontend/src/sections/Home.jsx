@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Map from "../components/Map.jsx";
 import LocationCard from "../components/locationCard.jsx"; // ✅ Ensure correct case-sensitive import
 
-export default function Home() {
+export default function Home({ onApplyClick }) {
   const [locations, setLocations] = useState([]); // Store locations from DB
+  const [hoveredLocationId, setHoveredLocationId] = useState(null);
 
   useEffect(() => {
     // Fetch locations from the backend
@@ -25,15 +26,26 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen w-screen bg-white">
       {/* Header Section */}
-      <header className="w-full bg-[#037CB5] text-white py-4 text-center text-3xl font-bold shadow-md">
-        ABC Mafia Carecubby
+      <header className="w-full bg-[#037CB5] text-white py-4 px-6 shadow-md flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-center w-full absolute left-1/2 transform -translate-x-1/2">
+          ABC Mafia Carecubby
+        </h1>
+        <button
+          onClick={onApplyClick}
+          className="ml-auto px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition z-10"
+        >
+          Add Location
+        </button>
       </header>
 
       {/* Main Content Section */}
       <div className="flex flex-grow w-screen h-screen">
         {/* Left Column - Map (70% width) */}
         <div className="flex-1 w-[70%] h-full bg-gray-200 flex items-center justify-center">
-          <Map />
+          <Map
+            hoveredLocationId={hoveredLocationId}
+            setHoveredLocationId={setHoveredLocationId}
+          />
         </div>
 
         {/* Right Column - Location List (30% width) */}
@@ -43,7 +55,12 @@ export default function Home() {
           {/* Loop through locations and create a card for each */}
           {locations.length > 0 ? (
             locations.map((location) => (
-              <LocationCard key={location._id} location={location} />
+              <LocationCard
+                key={location._id}
+                location={location}
+                isHovered={hoveredLocationId === location._id}
+                setHoveredLocationId={setHoveredLocationId}
+              />
             ))
           ) : (
             <p className="text-gray-500">No locations available.</p>

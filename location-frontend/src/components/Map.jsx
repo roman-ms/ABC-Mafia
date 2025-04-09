@@ -67,7 +67,7 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
               onMouseLeave={() => setHoveredLocationId(null)}
             >
               <img
-                src="/vite.svg" // You can change this to loc.image if each location has one
+                src={`/${loc.type || "vite.svg"}.PNG`}
                 alt={loc.name}
                 className="w-full h-full object-cover"
               />

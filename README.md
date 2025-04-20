@@ -22,7 +22,7 @@ Falling Fruit Tree Harvest Points
 
 🚧 Donation Info – While online donations aren’t enabled yet, users can learn how to support projects directly
 
-### Tech Stack
+## Tech Stack
 Frontend: React
 
 Backend: Node.js / Express
@@ -31,10 +31,10 @@ Database: MongoDB (or specify if different)
 
 Map Integration: Google Maps API
 
-#### About the Team
+## About the Team
 Carecubby is built and maintained by a small team of two. We’re passionate about community design, mutual aid, and tech that drives real-world impact.
 
-##### How to Contribute
+## How to Contribute
 We’re currently in early development and welcome collaborators! Feel free to fork the repo or reach out if you’re interested in helping with:
 
 UI/UX design
@@ -43,5 +43,5 @@ Location verification
 
 Outreach and community partnerships
 
-###### Live Demo
+## Live Demo
 Coming Soon

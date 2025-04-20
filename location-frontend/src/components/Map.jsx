@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   GoogleMap,
   LoadScript,
   Marker,
   OverlayView,
+  InfoWindow,
 } from "@react-google-maps/api";
 import { fetchLocations } from "../services/api";
 
@@ -12,14 +13,15 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
 
   const [locations, setLocations] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
-  const [hoveredMarker, setHoveredMarker] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [placeDetails, setPlaceDetails] = useState(null);
 
-  // Fetch stored locations from your API
+  const mapRef = useRef(null); // reference to the map instance
+
   useEffect(() => {
     fetchLocations().then(setLocations);
   }, []);
 
-  // Ask for user location
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -33,8 +35,6 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
           console.error("Error getting user location:", error);
         }
       );
-    } else {
-      console.warn("Geolocation is not supported by this browser.");
     }
   }, []);
 
@@ -43,14 +43,44 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
     height: "100%",
   };
 
+  const handleMarkerClick = (location) => {
+    setSelectedPlace(location);
+
+    // If place_id is not in your DB, you could use `textSearch` to find it based on name/location
+    const service = new window.google.maps.places.PlacesService(mapRef.current);
+
+    const request = {
+      placeId: location.place_id, // <- this must be available in your DB
+      fields: [
+        "name",
+        "formatted_address",
+        "rating",
+        "opening_hours",
+        "website",
+        "photos",
+      ],
+    };
+
+    service.getDetails(request, (place, status) => {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        setPlaceDetails(place);
+      } else {
+        console.error("Failed to fetch place details:", status);
+      }
+    });
+  };
+
   return (
-    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+    <LoadScript
+      googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+      libraries={["places"]} // make sure this is added
+    >
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
-        center={userLocation || defaultCenter} // Center on user if available
+        center={userLocation || defaultCenter}
+        onLoad={(map) => (mapRef.current = map)}
       >
-        {/* Fetched location markers */}
         {locations.map((loc, index) => (
           <OverlayView
             key={index}
@@ -65,6 +95,7 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
               }`}
               onMouseEnter={() => setHoveredLocationId(loc._id)}
               onMouseLeave={() => setHoveredLocationId(null)}
+              onClick={() => handleMarkerClick(loc)}
             >
               <img
                 src={`/${loc.type || "vite.svg"}.PNG`}
@@ -75,13 +106,36 @@ const Map = ({ hoveredLocationId, setHoveredLocationId }) => {
           </OverlayView>
         ))}
 
-        {/* User's location marker */}
+        {placeDetails && selectedPlace && (
+          <InfoWindow
+            position={{
+              lat: selectedPlace.latitude,
+              lng: selectedPlace.longitude,
+            }}
+            onCloseClick={() => {
+              setPlaceDetails(null);
+              setSelectedPlace(null);
+            }}
+          >
+            <div className="text-sm">
+              <h3 className="font-bold">{placeDetails.name}</h3>
+              <p>{placeDetails.formatted_address}</p>
+              <p>Rating: {placeDetails.rating}</p>
+              {placeDetails.website && (
+                <a href={placeDetails.website} target="_blank" rel="noreferrer">
+                  Website
+                </a>
+              )}
+            </div>
+          </InfoWindow>
+        )}
+
         {userLocation && (
           <Marker
             position={userLocation}
             title="You are here"
             icon={{
-              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Optional custom icon
+              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
             }}
           />
         )}

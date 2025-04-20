@@ -28,11 +28,11 @@ export default function Home({ onApplyClick }) {
       {/* Header Section */}
       <header className="w-full bg-[#037CB5] text-white py-4 px-6 shadow-md flex items-center justify-between">
         <h1 className="text-3xl font-bold text-center w-full absolute left-1/2 transform -translate-x-1/2">
-          ABC Mafia Carecubby
+          Carecubby Map
         </h1>
         <button
           onClick={onApplyClick}
-          className="ml-auto px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition z-10"
+          className="ml-auto px-6 py-2 bg-white text-[#037CB5] font-bold rounded-lg hover:bg-[#E6F4FA] border border-[#037CB5] transition z-10"
         >
           Add Location
         </button>

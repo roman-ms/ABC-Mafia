@@ -1,6 +1,4 @@
 # Carecubby
-
-# Carecubby
 Carecubby is a community-driven web platform designed to simplify local giving in Chicago, IL. Through an interactive map, users can discover and support grassroots donation hubs—ranging from art supply drop-offs to Narcan distribution points.
 
 Whether you're looking to give back or become a host, Carecubby makes it easy to connect with the causes that matter most in your neighborhood.

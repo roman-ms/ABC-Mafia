@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const ExcelJS = require("exceljs");
 const fetch = require("node-fetch");
+const path = require("path");
 require("dotenv").config();
 
-const connectDB = require("../config/db");
-const Location = require("../models/Location");
+const connectDB = require("../src/config/db");
+const Location = require("../src/models/Location");
 
 // ------------------ GOOGLE PLACES FETCH ------------------ //
 const getPlaceDetails = async (rawName) => {
@@ -34,7 +35,6 @@ const getPlaceDetails = async (rawName) => {
   const place = data.results[0];
 
   return {
-    name: place.name,
     place_id: place.place_id,
     formatted_address: place.formatted_address,
     latitude: place.geometry.location.lat,
@@ -47,38 +47,35 @@ const importExcel = async () => {
   await connectDB();
 
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile("locations.xlsx");
+  const filePath = path.join(__dirname, "..", "locations.xlsx");
+  await workbook.xlsx.readFile(filePath);
   const worksheet = workbook.getWorksheet(1);
 
+  const headerRow = worksheet.getRow(1).values.slice(1); // remove Excel's offset
   const data = [];
 
   for (let i = 2; i <= worksheet.rowCount; i++) {
     const row = worksheet.getRow(i);
-    const [rawName, type] = row.values.slice(1);
+    const values = row.values.slice(1);
+    const doc = {};
 
-    if (!rawName || !type) {
-      console.warn(`⚠️ Row ${i} skipped: missing name or type`);
+    headerRow.forEach((key, idx) => {
+      doc[key] = values[idx];
+    });
+
+    if (!doc.name) {
+      console.warn(`⚠️ Row ${i} skipped: missing 'name' column`);
       continue;
     }
 
-    console.log(`📄 Row ${i}: Raw = "${rawName}", Type = "${type}"`);
-
-    const placeInfo = await getPlaceDetails(rawName);
+    const placeInfo = await getPlaceDetails(doc.name);
     if (!placeInfo) {
-      console.warn(`⚠️ Row ${i} skipped: no Google result for "${rawName}"`);
+      console.warn(`⚠️ Row ${i} skipped: no Google result for "${doc.name}"`);
       continue;
     }
 
-    const doc = {
-      name: placeInfo.name,
-      type,
-      place_id: placeInfo.place_id,
-      formatted_address: placeInfo.formatted_address,
-      latitude: placeInfo.latitude,
-      longitude: placeInfo.longitude,
-    };
-
-    console.log(`✅ Row ${i}: Added → ${doc.name} (${doc.place_id})`);
+    Object.assign(doc, placeInfo);
+    console.log(`✅ Row ${i}: Added → ${doc.name} (${placeInfo.place_id})`);
     data.push(doc);
   }
 
@@ -88,38 +85,36 @@ const importExcel = async () => {
   }
 
   await Location.deleteMany();
+  console.log("✅ Deleted existing locations from MongoDB");
+
   await Location.insertMany(data);
   console.log(`🚀 Successfully imported ${data.length} locations to MongoDB`);
 
   // ---------- OVERWRITE ORIGINAL FILE ----------
   const overwriteWorkbook = new ExcelJS.Workbook();
   const overwriteSheet = overwriteWorkbook.addWorksheet("Locations");
-
-  // Header row
   overwriteSheet.addRow([
-    "name",
-    "type",
+    ...headerRow,
     "place_id",
     "formatted_address",
     "latitude",
     "longitude",
   ]);
 
-  // Data rows
-  data.forEach((location) => {
-    overwriteSheet.addRow([
-      location.name,
-      location.type,
-      location.place_id,
-      location.formatted_address,
-      location.latitude,
-      location.longitude,
-    ]);
+  data.forEach((doc) => {
+    overwriteSheet.addRow(
+      headerRow
+        .map((h) => doc[h])
+        .concat([
+          doc.place_id,
+          doc.formatted_address,
+          doc.latitude,
+          doc.longitude,
+        ])
+    );
   });
 
-  // Overwrite original file
-  await overwriteWorkbook.xlsx.writeFile("locations.xlsx");
-
+  await overwriteWorkbook.xlsx.writeFile(filePath);
   console.log(
     "✏️ Original 'locations.xlsx' successfully overwritten with enriched data"
   );

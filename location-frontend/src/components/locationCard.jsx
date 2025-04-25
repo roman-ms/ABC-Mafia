@@ -5,6 +5,7 @@ export default function LocationCard({
   setHoveredLocationId,
   setSelectedLocationId,
 }) {
+  console.log(location)
   return (
     <div
       onMouseEnter={() => setHoveredLocationId(location._id)}
@@ -14,7 +15,7 @@ export default function LocationCard({
         isSelected
           ? "border-blue-600 shadow-lg scale-105"
           : isHovered
-          ? "border-blue-400 scale-105"
+          ? "hover:border-blue-400 hover:scale-105"
           : "border-gray-200"
       }`}
     >

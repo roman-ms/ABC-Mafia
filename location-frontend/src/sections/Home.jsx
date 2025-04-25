@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Header from "../components/base/Header.jsx";
 import Map from "../components/Map.jsx";
 import LocationCard from "../components/locationCard.jsx";
 
@@ -11,7 +12,7 @@ export default function Home({ onApplyClick }) {
     const fetchLocations = async () => {
       try {
         const response = await fetch(
-          import.meta.env.VITE_API_BASE_URL + "/api/locations"
+          import.meta.env.VITE_API_BASE_URL + "/api/locations",
         );
         if (!response.ok) throw new Error("Failed to fetch locations");
 
@@ -26,24 +27,14 @@ export default function Home({ onApplyClick }) {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen w-screen bg-white">
+    <div className="flex flex-col">
       {/* Header */}
-      <header className="w-full bg-[#037CB5] text-white py-4 px-6 shadow-md flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-center w-full absolute left-1/2 transform -translate-x-1/2">
-          Carecubby Map
-        </h1>
-        <button
-          onClick={onApplyClick}
-          className="ml-auto px-6 py-2 bg-white text-[#037CB5] font-bold rounded-lg hover:bg-[#E6F4FA] border border-[#037CB5] transition z-10"
-        >
-          Add Location
-        </button>
-      </header>
+      <Header />
 
       {/* Main Content */}
-      <div className="flex flex-grow w-screen h-screen">
+      <div className="flex h-screen flex-col items-center justify-center gap-4 md:flex-row p-4 lg:p-6 lg:h-[700px]">
         {/* Left - Map */}
-        <div className="flex-1 w-[70%] h-full bg-gray-200 flex items-center justify-center">
+        <div className="flex h-full w-full items-center justify-center lg:w-2/3">
           <Map
             hoveredLocationId={hoveredLocationId}
             setHoveredLocationId={setHoveredLocationId}
@@ -53,8 +44,8 @@ export default function Home({ onApplyClick }) {
         </div>
 
         {/* Right - Cards */}
-        <div className="w-[30%] h-full p-6 bg-white text-gray-800 overflow-y-auto">
-          <h2 className="text-3xl font-bold mb-4">Locations</h2>
+        <div className="h-full w-full overflow-y-auto rounded-2xl bg-cardstock p-6 text-gray-800 md:w-1/3">
+          <h2 className="mb-4 text-3xl text-vermilion font-bold font-display">Locations</h2>
 
           {locations.length > 0 ? (
             locations.map((location) => (

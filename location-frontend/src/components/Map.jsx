@@ -50,7 +50,7 @@ const Map = ({
   const selectedLocation = locations.find(
     (loc) => loc._id === selectedLocationId
   );
-  const mapContainerStyle = { width: "100%", height: "100%" };
+  const mapContainerStyle = { width: "100%", height: "100%", borderRadius: "16px" };
 
   return (
     <LoadScript

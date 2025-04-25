@@ -6,7 +6,7 @@ const App = () => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <main className="max-w-7xl mx-auto relative">
+    <main className="mx-auto relative w-full">
       <Home onApplyClick={() => setShowForm(true)} />
       {showForm && <Form onClose={() => setShowForm(false)} />}
     </main>

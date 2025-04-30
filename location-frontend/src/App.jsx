@@ -6,10 +6,15 @@ const App = () => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <main className="mx-auto relative w-full">
+    <>
+    <main className="container px-4 lg:px-0 mx-auto">
       <Home onApplyClick={() => setShowForm(true)} />
       {showForm && <Form onClose={() => setShowForm(false)} />}
     </main>
+    <footer>
+      footer helo
+    </footer>
+    </>
   );
 };
 

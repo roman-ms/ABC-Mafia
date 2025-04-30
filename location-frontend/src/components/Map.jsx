@@ -63,16 +63,6 @@ const Map = ({
                   : "border-gray-300 scale-90"
               }`}
               onClick={() => setSelectedLocationId(loc._id)}
-              onMouseEnter={() => {
-                if (!selectedLocationId) {
-                  setHoveredLocationId(loc._id);
-                }
-              }}
-              onMouseLeave={() => {
-                if (!selectedLocationId) {
-                  setHoveredLocationId(null);
-                }
-              }}
             >
               <img
                 src={`/${loc.type || "vite"}.PNG`}
@@ -84,7 +74,7 @@ const Map = ({
         ))}
       </GoogleMap>
 
-      {selectedLocationId && (
+      {/* {selectedLocationId && (
         <div
           ref={popupRef}
           className="fixed bottom-8 left-8 bg-white shadow-xl rounded-xl p-6 max-w-sm z-[1001]"
@@ -96,7 +86,7 @@ const Map = ({
             {locations.find((loc) => loc._id === selectedLocationId)?.description}
           </p>
         </div>
-      )}
+      )} */}
     </LoadScript>
   );
 };

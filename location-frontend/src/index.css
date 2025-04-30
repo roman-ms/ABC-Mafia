@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @import "tailwindcss";
 
 @theme {
-  --color-cerulean: #037CB5;
-  --color-sunshine: #FEBC27;
-  --color-sky-blue: #8FDDFE;
-  --color-vermilion: #FF4015;
-  --color-cardstock: #FFEFDC;
-  --font-display: 'DynaPuff', Avenir, Helvetica, Arial, system-ui, sans-serif;
-  --font-body: 'Poppins', Avenir, Helvetica, Arial, system-ui, sans-serif;
+  --color-cerulean: #037cb5;
+  --color-sunshine: #febc27;
+  --color-sky-blue: #8fddfe;
+  --color-vermilion: #ff4015;
+  --color-cardstock: #ffefdc;
+  --font-display: "DynaPuff", Avenir, Helvetica, Arial, system-ui, sans-serif;
+  --font-body: "Poppins", Avenir, Helvetica, Arial, system-ui, sans-serif;
 }
 
 * {
@@ -30,6 +30,14 @@ body {
   @apply bg-cardstock;
 }
 
+@media (min-width: 1024px) {
+  .map-background {
+    background: url("map.JPG");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
 a {
   font-weight: 500;
   color: var(--color-cerulean);
@@ -38,8 +46,6 @@ a {
 a:hover {
   color: var(--color-vermilion);
 }
-
-
 
 button {
   border-radius: 8px;

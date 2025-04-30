@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   GoogleMap,
   LoadScript,
   Marker,
   OverlayView,
 } from "@react-google-maps/api";
-import { fetchLocations } from "../services/api";
 import rulesByType from "../data/rulesByType";
 
 const Map = ({
@@ -13,39 +12,11 @@ const Map = ({
   setHoveredLocationId,
   selectedLocationId,
   setSelectedLocationId,
+  locations = [],
 }) => {
   const defaultCenter = { lat: 41.8781, lng: -87.6298 };
-  const [locations, setLocations] = useState([]);
-  const [userLocation, setUserLocation] = useState(null);
   const mapRef = useRef(null);
   const popupRef = useRef(null);
-
-  useEffect(() => {
-    fetchLocations().then(setLocations);
-  }, []);
-
-  useEffect(() => {
-    navigator.geolocation?.getCurrentPosition(
-      ({ coords }) =>
-        setUserLocation({ lat: coords.latitude, lng: coords.longitude }),
-      (error) => console.error("Geolocation error:", error)
-    );
-  }, []);
-
-  // ❌ Clear selection when clicking outside popup
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(e.target) &&
-        !e.target.closest(".map-marker")
-      ) {
-        setSelectedLocationId(null);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [setSelectedLocationId]);
 
   const selectedLocation = locations.find(
     (loc) => loc._id === selectedLocationId
@@ -60,7 +31,7 @@ const Map = ({
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
-        center={userLocation || defaultCenter}
+        center={defaultCenter}
         onLoad={(map) => (mapRef.current = map)}
       >
         {locations.map((loc) => (
@@ -93,16 +64,6 @@ const Map = ({
             </div>
           </OverlayView>
         ))}
-
-        {userLocation && (
-          <Marker
-            position={userLocation}
-            title="Your Location"
-            icon={{
-              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-            }}
-          />
-        )}
       </GoogleMap>
 
       {selectedLocation && (

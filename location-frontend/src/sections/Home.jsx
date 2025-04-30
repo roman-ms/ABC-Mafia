@@ -3,22 +3,19 @@ import Map from "../components/Map.jsx";
 import LocationCard from "../components/locationCard.jsx";
 
 export default function Home({ onApplyClick }) {
-  const [locations, setLocations] = useState([]); // ✅ <--- Keep this!
+  const [locations, setLocations] = useState([]);
   const [hoveredLocationId, setHoveredLocationId] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
 
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await fetch(
-          import.meta.env.VITE_API_BASE_URL + "/api/locations"
-        );
-        if (!response.ok) throw new Error("Failed to fetch locations");
-
+        const response = await fetch("/data/locations.json");
+        if (!response.ok) throw new Error("Failed to fetch locations.json");
         const data = await response.json();
-        setLocations(data); // ✅ <--- Make sure you set this!
+        setLocations(data);
       } catch (error) {
-        console.error("Error fetching locations:", error);
+        console.error("Error fetching locations locally:", error);
       }
     };
 
@@ -49,6 +46,7 @@ export default function Home({ onApplyClick }) {
             setHoveredLocationId={setHoveredLocationId}
             selectedLocationId={selectedLocationId}
             setSelectedLocationId={setSelectedLocationId}
+            locations={locations}
           />
         </div>
 

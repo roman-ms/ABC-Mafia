@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "ChIJx_VyuLDTD4gR_TjFLHXJdpY",
+    "name": "Center on Halsted",
+    "description": "3656 N Halsted St, Chicago, IL 60613, United States",
+    "latitude": 41.9489773,
+    "longitude": -87.6497045,
+    "type": "A"
+  },
+  {
+    "_id": "ChIJ33YxJNXTD4gRWe6jz5NdNpo",
+    "name": "First Sip Cafe",
+    "description": "1057 W Argyle St, Chicago, IL 60640, United States",
+    "latitude": 41.9731758,
+    "longitude": -87.6572092,
+    "type": "B"
+  },
+  {
+    "_id": "ChIJt6mzLZ7SD4gR8bpjii62t_Q",
+    "name": "Bang Bang Pie & Biscuits",
+    "description": "2051 N California Ave, Chicago, IL 60647, United States",
+    "latitude": 41.9190202,
+    "longitude": -87.6971201,
+    "type": "C"
+  }
+]

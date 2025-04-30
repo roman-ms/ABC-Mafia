@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import locations from "../data/locations.json";
+import locationData from "../data/locations.json";
 import Header from "../components/base/Header.jsx";
 import Map from "../components/Map.jsx";
 import LocationCard from "../components/locationCard.jsx";
@@ -7,6 +7,7 @@ import LocationCard from "../components/locationCard.jsx";
 export default function Home({ onApplyClick }) {
   const [hoveredLocationId, setHoveredLocationId] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
+  const [locations, setLocations] = useState(locationData);
 
   return (
     <div className="flex flex-col">
@@ -16,8 +17,8 @@ export default function Home({ onApplyClick }) {
       {/* Main Content */}
       <div className="container flex flex-col lg:flex-row gap-8 justify-center">
         {/* Left - Map */}
-        <div className="w-full lg:w-2/3 ">
-          <div className="map-background block relative w-full h-full">
+        <div className="w-full lg:w-2/3">
+          <div className="map-background rounded-md block relative w-full h-full">
             <div className="max-w-[480px] w-full lg:w-3/4 lg:absolute top-[70px] left-[110px] aspect-square mx-auto">
               <Map
                 hoveredLocationId={hoveredLocationId}

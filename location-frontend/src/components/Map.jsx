@@ -1,8 +1,7 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import {
   GoogleMap,
   LoadScript,
-  Marker,
   OverlayView,
 } from "@react-google-maps/api";
 import rulesByType from "../data/rulesByType";
@@ -14,14 +13,29 @@ const Map = ({
   setSelectedLocationId,
   locations = [],
 }) => {
-  const defaultCenter = { lat: 41.8781, lng: -87.6298 };
+  const defaultCenter = { lat: 41.8781, lng: -87.6298 }; // Chicago
   const mapRef = useRef(null);
   const popupRef = useRef(null);
 
-  const selectedLocation = locations.find(
-    (loc) => loc._id === selectedLocationId
-  );
   const mapContainerStyle = { width: "100%", height: "100%", borderRadius: "16px" };
+
+  // Function to center the map on a specific location
+  const centerMapOnLocation = (location) => {
+    if (mapRef.current && location) {
+      mapRef.current.panTo({ lat: location.latitude, lng: location.longitude });
+    }
+  };
+
+  // UseEffect to center the map on hover or select
+  useEffect(() => {
+    const locationToCenter =
+      locations.find((loc) => loc._id === hoveredLocationId) ||
+      locations.find((loc) => loc._id === selectedLocationId);
+
+    if (locationToCenter) {
+      centerMapOnLocation(locationToCenter);
+    }
+  }, [hoveredLocationId, selectedLocationId, locations]);
 
   return (
     <LoadScript
@@ -49,12 +63,16 @@ const Map = ({
                   : "border-gray-300 scale-90"
               }`}
               onClick={() => setSelectedLocationId(loc._id)}
-              onMouseEnter={() =>
-                !selectedLocationId && setHoveredLocationId(loc._id)
-              }
-              onMouseLeave={() =>
-                !selectedLocationId && setHoveredLocationId(null)
-              }
+              onMouseEnter={() => {
+                if (!selectedLocationId) {
+                  setHoveredLocationId(loc._id);
+                }
+              }}
+              onMouseLeave={() => {
+                if (!selectedLocationId) {
+                  setHoveredLocationId(null);
+                }
+              }}
             >
               <img
                 src={`/${loc.type || "vite"}.PNG`}
@@ -66,36 +84,17 @@ const Map = ({
         ))}
       </GoogleMap>
 
-      {selectedLocation && (
+      {selectedLocationId && (
         <div
           ref={popupRef}
           className="fixed bottom-8 left-8 bg-white shadow-xl rounded-xl p-6 max-w-sm z-[1001]"
         >
           <h3 className="text-xl text-gray-600 font-bold mb-2">
-            {selectedLocation.name}
+            {locations.find((loc) => loc._id === selectedLocationId)?.name}
           </h3>
-          <p className="text-gray-600 mb-2">{selectedLocation.description}</p>
-
-          {rulesByType[selectedLocation.type] ? (
-            <>
-              <h4 className="font-semibold text-green-600">✅ Do's</h4>
-              <ul className="list-disc list-inside text-sm text-gray-700 mb-2">
-                {rulesByType[selectedLocation.type].dos.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-              <h4 className="font-semibold text-red-600">🚫 Don'ts</h4>
-              <ul className="list-disc list-inside text-sm text-gray-700">
-                {rulesByType[selectedLocation.type].donts.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <p className="text-sm text-gray-500 italic">
-              No rules available for this location type.
-            </p>
-          )}
+          <p className="text-gray-600 mb-2">
+            {locations.find((loc) => loc._id === selectedLocationId)?.description}
+          </p>
         </div>
       )}
     </LoadScript>

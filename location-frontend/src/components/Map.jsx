@@ -74,7 +74,7 @@ const Map = ({
         ))}
       </GoogleMap>
 
-      {/* {selectedLocationId && (
+      {selectedLocationId && (
         <div
           ref={popupRef}
           className="fixed bottom-8 left-8 bg-white shadow-xl rounded-xl p-6 max-w-sm z-[1001]"
@@ -86,7 +86,7 @@ const Map = ({
             {locations.find((loc) => loc._id === selectedLocationId)?.description}
           </p>
         </div>
-      )} */}
+      )}
     </LoadScript>
   );
 };

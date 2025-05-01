@@ -30,12 +30,11 @@ body {
   @apply bg-cardstock;
 }
 
-@media (min-width: 1024px) {
-  .map-background {
-    background: url("map.JPG");
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+.map-background {
+  background: url("map2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 70%;
 }
 
 a {
@@ -64,4 +63,10 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+footer {
+  p {
+    @apply text-lg py-4;
+  }
 }

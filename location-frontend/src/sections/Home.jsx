@@ -8,6 +8,7 @@ export default function Home({ onApplyClick }) {
   const [hoveredLocationId, setHoveredLocationId] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
   const [locations, setLocations] = useState(locationData);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex flex-col">
@@ -15,25 +16,29 @@ export default function Home({ onApplyClick }) {
       <Header />
 
       {/* Main Content */}
-      <div className="container flex flex-col lg:flex-row gap-8 justify-center">
+      <div className="container flex flex-col justify-center gap-8 lg:flex-row">
         {/* Left - Map */}
         <div className="w-full lg:w-2/3">
-          <div className="map-background rounded-md block relative w-full h-full">
-            <div className="max-w-[480px] w-full lg:w-3/4 lg:absolute top-[70px] left-[50px] aspect-square mx-auto border-2 border-cerulean rounded-2xl">
+          <div className="map-background relative block h-full w-full rounded-md">
+            <div className="border-cerulean top-[70px] left-[50px] mx-auto aspect-square w-full max-w-[480px] rounded-2xl border-2 lg:absolute lg:w-3/4">
               <Map
                 hoveredLocationId={hoveredLocationId}
                 setHoveredLocationId={setHoveredLocationId}
                 selectedLocationId={selectedLocationId}
                 setSelectedLocationId={setSelectedLocationId}
                 locations={locations}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
               />
             </div>
           </div>
         </div>
 
         {/* Right - Cards */}
-        <div className="w-full lg:w-1/3 overflow-y-auto bg-sunshine rounded-lg p-6 text-gray-800">
-          <h2 className="mb-4 text-3xl font-display text-blue-600 font-bold text-center">Locations</h2>
+        <div className="bg-sunshine w-full overflow-y-auto rounded-lg p-6 text-gray-800 lg:w-1/3">
+          <h2 className="font-display mb-4 text-center text-3xl font-bold text-blue-600">
+            Locations
+          </h2>
 
           {locations.length > 0 ? (
             locations.map((location) => (
@@ -44,6 +49,8 @@ export default function Home({ onApplyClick }) {
                 isSelected={selectedLocationId === location._id}
                 setHoveredLocationId={setHoveredLocationId}
                 setSelectedLocationId={setSelectedLocationId}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
               />
             ))
           ) : (

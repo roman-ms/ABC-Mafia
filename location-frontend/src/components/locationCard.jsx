@@ -6,6 +6,8 @@ export default function LocationCard({
   isSelected,
   setHoveredLocationId,
   setSelectedLocationId,
+  setIsOpen,
+  isOpen
 }) {
   // Debounced hover handler
   const handleMouseEnter = useCallback(() => {
@@ -24,7 +26,10 @@ export default function LocationCard({
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => setSelectedLocationId(location._id)}
+      onClick={() => {
+        setSelectedLocationId(location._id)
+        setIsOpen(true)
+      }}
       className={`mb-4 cursor-pointer rounded-lg border-3 border-dashed bg-white p-4 transition duration-200 ${
         isSelected
           ? "scale-105 border-blue-500"
@@ -35,7 +40,6 @@ export default function LocationCard({
     >
       <h3 className="text-vermilion text-xl font-bold">{location.name}</h3>
       {location.description && <p className="text-gray-80 pt-2 pb-4"></p>}
-
       {location.description && <p>📍 {location.description}</p>}
     </div>
   );

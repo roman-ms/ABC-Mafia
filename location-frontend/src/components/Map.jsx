@@ -1,104 +1,95 @@
-import { useRef } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  OverlayView,
-} from "@react-google-maps/api";
-import rulesByType from "../data/rulesByType";
+import { useRef, useEffect, useState } from "react";
+import { GoogleMap, LoadScript, OverlayView } from "@react-google-maps/api";
+import { DialogComponent } from "./DialogComponent.jsx";
+
+// Define the libraries array as a constant outside the component
+const libraries = ["places"];
 
 const Map = ({
   hoveredLocationId,
-  setHoveredLocationId,
   selectedLocationId,
   setSelectedLocationId,
   locations = [],
+  isOpen,
+  setIsOpen
 }) => {
-  const defaultCenter = { lat: 41.8781, lng: -87.6298 };
+  const defaultCenter = { lat: 41.8781, lng: -87.6298 }; // Chicago
   const mapRef = useRef(null);
   const popupRef = useRef(null);
 
-  const selectedLocation = locations.find(
-    (loc) => loc._id === selectedLocationId
-  );
-  const mapContainerStyle = { width: "100%", height: "100%" };
+  const mapContainerStyle = {
+    width: "100%",
+    height: "100%",
+    borderRadius: "16px",
+  };
+
+  // Function to center the map on a specific location
+  const centerMapOnLocation = (location) => {
+    if (mapRef.current && location) {
+      mapRef.current.panTo({ lat: location.latitude, lng: location.longitude });
+    }
+  };
+
+  // UseEffect to center the map on hover or select
+  useEffect(() => {
+    const locationToCenter =
+      locations.find((loc) => loc._id === hoveredLocationId) ||
+      locations.find((loc) => loc._id === selectedLocationId);
+
+    if (locationToCenter) {
+      centerMapOnLocation(locationToCenter);
+    }
+  }, [hoveredLocationId, selectedLocationId, locations]);
 
   return (
-    <LoadScript
-      googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-      libraries={["places"]}
-    >
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={12}
-        center={defaultCenter}
-        onLoad={(map) => (mapRef.current = map)}
+    <>
+      <LoadScript
+        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+        libraries={libraries} // Use the static libraries array
       >
-        {locations.map((loc) => (
-          <OverlayView
-            key={loc._id}
-            position={{ lat: loc.latitude, lng: loc.longitude }}
-            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-          >
-            <div
-              className={`map-marker w-14 h-14 rounded-full border-4 overflow-hidden flex items-center justify-center cursor-pointer transition-transform ${
-                selectedLocationId === loc._id
-                  ? "border-blue-600 scale-110 z-10"
-                  : hoveredLocationId === loc._id
-                  ? "border-blue-400 scale-105"
-                  : "border-gray-300 scale-90"
-              }`}
-              onClick={() => setSelectedLocationId(loc._id)}
-              onMouseEnter={() =>
-                !selectedLocationId && setHoveredLocationId(loc._id)
-              }
-              onMouseLeave={() =>
-                !selectedLocationId && setHoveredLocationId(null)
-              }
-            >
-              <img
-                src={`/${loc.type || "vite"}.PNG`}
-                alt={loc.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </OverlayView>
-        ))}
-      </GoogleMap>
-
-      {selectedLocation && (
-        <div
-          ref={popupRef}
-          className="fixed bottom-8 left-8 bg-white shadow-xl rounded-xl p-6 max-w-sm z-[1001]"
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={12}
+          center={defaultCenter}
+          onLoad={(map) => (mapRef.current = map)}
         >
-          <h3 className="text-xl text-gray-600 font-bold mb-2">
-            {selectedLocation.name}
-          </h3>
-          <p className="text-gray-600 mb-2">{selectedLocation.description}</p>
-
-          {rulesByType[selectedLocation.type] ? (
-            <>
-              <h4 className="font-semibold text-green-600">✅ Do's</h4>
-              <ul className="list-disc list-inside text-sm text-gray-700 mb-2">
-                {rulesByType[selectedLocation.type].dos.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-              <h4 className="font-semibold text-red-600">🚫 Don'ts</h4>
-              <ul className="list-disc list-inside text-sm text-gray-700">
-                {rulesByType[selectedLocation.type].donts.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <p className="text-sm text-gray-500 italic">
-              No rules available for this location type.
-            </p>
-          )}
-        </div>
-      )}
-    </LoadScript>
+          {locations.map((loc) => (
+            <OverlayView
+              key={loc._id}
+              position={{ lat: loc.latitude, lng: loc.longitude }}
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            >
+              <div
+                className={`map-marker flex h-14 w-14 cursor-pointer items-center justify-center overflow-hidden rounded-full border-4 transition-transform ${
+                  selectedLocationId === loc._id
+                    ? "z-10 scale-110 border-blue-600"
+                    : hoveredLocationId === loc._id
+                      ? "scale-105 border-blue-400"
+                      : "scale-90 border-gray-300"
+                }`}
+                onClick={() => {
+                  setSelectedLocationId(loc._id);
+                  setIsOpen(true);
+                }}
+              >
+                <img
+                  src={`/${loc.type || "vite"}.PNG`}
+                  alt={loc.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </OverlayView>
+          ))}
+        </GoogleMap>
+      </LoadScript>
+      <DialogComponent
+        ref={popupRef}
+        locations={locations}
+        selectedLocationId={selectedLocationId}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+    </>
   );
 };
 

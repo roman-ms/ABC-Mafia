@@ -1,58 +1,44 @@
 import { useEffect, useState } from "react";
+import locationData from "../data/locations.json";
+import Header from "../components/base/Header.jsx";
 import Map from "../components/Map.jsx";
 import LocationCard from "../components/locationCard.jsx";
 
 export default function Home({ onApplyClick }) {
-  const [locations, setLocations] = useState([]);
   const [hoveredLocationId, setHoveredLocationId] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
-
-  useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const response = await fetch("/data/locations.json");
-        if (!response.ok) throw new Error("Failed to fetch locations.json");
-        const data = await response.json();
-        setLocations(data);
-      } catch (error) {
-        console.error("Error fetching locations locally:", error);
-      }
-    };
-
-    fetchLocations();
-  }, []);
+  const [locations, setLocations] = useState(locationData);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen w-screen bg-white">
+    <div className="flex flex-col">
       {/* Header */}
-      <header className="w-full bg-[#037CB5] text-white py-4 px-6 shadow-md flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-center w-full absolute left-1/2 transform -translate-x-1/2">
-          Carecubby Map
-        </h1>
-        <button
-          onClick={onApplyClick}
-          className="ml-auto px-6 py-2 bg-white text-[#037CB5] font-bold rounded-lg hover:bg-[#E6F4FA] border border-[#037CB5] transition z-10"
-        >
-          Add Location
-        </button>
-      </header>
+      <Header />
 
       {/* Main Content */}
-      <div className="flex flex-grow w-screen h-screen">
+      <div className="container flex flex-col justify-center gap-8 lg:flex-row">
         {/* Left - Map */}
-        <div className="flex-1 w-[70%] h-full bg-gray-200 flex items-center justify-center">
-          <Map
-            hoveredLocationId={hoveredLocationId}
-            setHoveredLocationId={setHoveredLocationId}
-            selectedLocationId={selectedLocationId}
-            setSelectedLocationId={setSelectedLocationId}
-            locations={locations}
-          />
+        <div className="w-full lg:w-2/3">
+          <div className="map-background relative block h-full w-full rounded-md">
+            <div className="border-cerulean top-[70px] left-[50px] mx-auto aspect-square w-full max-w-[480px] rounded-2xl border-2 lg:absolute lg:w-3/4">
+              <Map
+                hoveredLocationId={hoveredLocationId}
+                setHoveredLocationId={setHoveredLocationId}
+                selectedLocationId={selectedLocationId}
+                setSelectedLocationId={setSelectedLocationId}
+                locations={locations}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Right - Cards */}
-        <div className="w-[30%] h-full p-6 bg-white text-gray-800 overflow-y-auto">
-          <h2 className="text-3xl font-bold mb-4">Locations</h2>
+        <div className="bg-sunshine w-full overflow-y-auto rounded-lg p-6 text-gray-800 lg:w-1/3">
+          <h2 className="font-display mb-4 text-center text-3xl font-bold text-blue-600">
+            Locations
+          </h2>
 
           {locations.length > 0 ? (
             locations.map((location) => (
@@ -63,6 +49,8 @@ export default function Home({ onApplyClick }) {
                 isSelected={selectedLocationId === location._id}
                 setHoveredLocationId={setHoveredLocationId}
                 setSelectedLocationId={setSelectedLocationId}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
               />
             ))
           ) : (

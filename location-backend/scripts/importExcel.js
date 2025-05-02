@@ -33,7 +33,6 @@ const getPlaceDetails = async (rawName) => {
   }
 
   const place = data.results[0];
-  console.log(place)
   return {
     place_id: place.place_id,
     formatted_address: place.formatted_address,

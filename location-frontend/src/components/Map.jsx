@@ -11,9 +11,9 @@ const Map = ({
   setSelectedLocationId,
   locations = [],
   isOpen,
-  setIsOpen
+  setIsOpen,
 }) => {
-  const defaultCenter = { lat: 41.8781, lng: -87.6298 }; // Chicago
+  const defaultCenter = { lat: 41.95, lng: -87.6298 }; // Chicago
   const mapRef = useRef(null);
   const popupRef = useRef(null);
 

@@ -49,7 +49,7 @@ const Map = ({
       >
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={12}
+          zoom={11.5}
           center={defaultCenter}
           onLoad={(map) => (mapRef.current = map)}
         >

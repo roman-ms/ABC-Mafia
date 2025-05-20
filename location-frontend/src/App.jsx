@@ -12,7 +12,7 @@ const App = () => {
         <Home onApplyClick={() => setShowForm(true)} />
         {showForm && <Form onClose={() => setShowForm(false)} />}
       </main>
-      <footer className="mt-8 bg-blue-600 px-4 py-8 text-white lg:p-8">
+      <footer className="mt-8 bg-green-700 px-4 py-8 text-white lg:p-8">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-sunshine font-display mb-2 text-center text-4xl font-bold">
             What is this?

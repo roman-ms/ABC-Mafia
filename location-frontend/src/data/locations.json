@@ -2,6 +2,8 @@
   {
     "_id": "ChIJx_VyuLDTD4gR_TjFLHXJdpY",
     "name": "Center on Halsted",
+    "link": "https://www.centeronhalsted.org/",
+    "location_link": "https://www.google.com/maps/place/Center+on+Halsted/@41.9489813,-87.6522794,17z/data=!3m1!4b1!4m6!3m5!1s0x880fd3b0b872f5c7:0x9676c9752cc538fd!8m2!3d41.9489773!4d-87.6497045!16zL20vMDI4Z2Nk?entry=ttu&g_ep=EgoyMDI1MDUxMi4wIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
     "description": "3656 N Halsted St, Chicago, IL 60613, United States",
     "latitude": 41.94905706587097,
     "longitude": -87.64960794328998,
@@ -10,6 +12,8 @@
   {
     "_id": "ChIJ33YxJNXTD4gRWe6jz5NdNpo",
     "name": "First Sip Cafe",
+    "link": "https://www.google.com/maps/place/First+Sip+Cafe/@41.973167,-87.6572066,17z/data=!3m1!4b1!4m6!3m5!1s0x880fd3d5243176df:0x9a365d93cfa3ee59!8m2!3d41.973167!4d-87.6572066!16s%2Fg%2F11gc9gt_t9?entry=ttu&g_ep=EgoyMDI1MDUxMi4wIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+    "location_link": "https://www.google.com/maps/place/First+Sip+Cafe/@41.973167,-87.6572066,17z/data=!3m1!4b1!4m6!3m5!1s0x880fd3d5243176df:0x9a365d93cfa3ee59!8m2!3d41.973167!4d-87.6572066!16s%2Fg%2F11gc9gt_t9?entry=ttu&g_ep=EgoyMDI1MDUxMi4wIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
     "description": "1057 W Argyle St, Chicago, IL 60640, United States",
     "latitude": 41.97329462291322,
     "longitude": -87.65719587116445,
@@ -18,6 +22,8 @@
   {
     "_id": "ChIJt6mzLZ7SD4gR8bpjii62t_Q",
     "name": "Bang Bang Pie & Biscuits",
+    "link": "http://www.bangbangpie.com/",
+    "location_link": "https://www.google.com/maps/place/Bang+Bang+Pie+%26+Biscuits/@42.1078876,-87.5672758,9.74z/data=!4m14!1m7!3m6!1s0x880fd29e2db3a9b7:0xf4b7b62e8a63baf1!2sBang+Bang+Pie+%26+Biscuits!8m2!3d41.9190185!4d-87.6971122!16s%2Fg%2F119wc04d4!3m5!1s0x880fd29e2db3a9b7:0xf4b7b62e8a63baf1!8m2!3d41.9190185!4d-87.6971122!16s%2Fg%2F119wc04d4?entry=ttu&g_ep=EgoyMDI1MDUxMi4wIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
     "description": "2051 N California Ave, Chicago, IL 60647, United States",
     "latitude": 41.91898653835872,
     "longitude": -87.69660794754115,

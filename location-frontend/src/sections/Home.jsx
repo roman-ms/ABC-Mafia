@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import locationData from "../data/locations.json";
 import Header from "../components/base/Header.jsx";
 import Map from "../components/Map.jsx";
@@ -10,6 +10,31 @@ export default function Home({ onApplyClick }) {
   const [locations, setLocations] = useState(locationData);
   const [isOpen, setIsOpen] = useState(false);
 
+  // Global click handler to deselect location
+  const handleGlobalClick = useCallback(
+    (e) => {
+      // Check if the click is on a location card or map marker
+      const isLocationClick =
+        e.target.closest(".map-marker") ||
+        e.target.closest(".location-card") ||
+        e.target.closest("a[href]"); // Don't deselect when clicking links
+
+      if (!isLocationClick && selectedLocationId) {
+        setSelectedLocationId(null);
+        setIsOpen(false);
+      }
+    },
+    [selectedLocationId],
+  );
+
+  // Add and remove global click listener
+  useEffect(() => {
+    document.addEventListener("click", handleGlobalClick);
+    return () => {
+      document.removeEventListener("click", handleGlobalClick);
+    };
+  }, [handleGlobalClick]);
+
   return (
     <div className="flex flex-col">
       {/* Header */}
@@ -20,7 +45,7 @@ export default function Home({ onApplyClick }) {
         {/* Left - Map */}
         <div className="w-full lg:w-2/3">
           <div className="map-background relative block h-full w-full rounded-md">
-            <div className="border-cerulean top-[70px] left-[50px] mx-auto aspect-square w-full max-w-[480px] rounded-2xl border-2 lg:absolute lg:w-3/4">
+            <div className="border-cerulean top-[70px] left-[50px] mx-auto aspect-square w-full max-w-[1280px] rounded-2xl border-2 lg:absolute lg:w-3/4">
               <Map
                 hoveredLocationId={hoveredLocationId}
                 setHoveredLocationId={setHoveredLocationId}

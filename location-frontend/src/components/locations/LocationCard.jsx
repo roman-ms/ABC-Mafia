@@ -72,8 +72,11 @@ const LocationCard = memo(
             {location.name}
           </a>
         </h3>
-        {location.description && <p className="text-gray-80 pt-2 pb-4"></p>}
-        {location.description && <p>📍 {location.description}</p>}
+        {location.description && (
+          <p className="mt-2 text-sm leading-relaxed text-gray-600">
+            {location.description}
+          </p>
+        )}
       </div>
     );
   },

@@ -1,8 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import locationData from "../data/locations.json";
 import Header from "../components/base/Header.jsx";
-import Map from "../components/Map.jsx";
-import LocationCard from "../components/locationCard.jsx";
+import MapSection from "../components/map/MapSection.jsx";
+import LocationsSection from "../components/locations/LocationsSection.jsx";
+import InfoSection from "../components/layout/InfoSection.jsx";
+import FooterSection from "../components/layout/FooterSection.jsx";
 
 export default function Home({ onApplyClick }) {
   const [hoveredLocationId, setHoveredLocationId] = useState(null);
@@ -36,53 +38,41 @@ export default function Home({ onApplyClick }) {
   }, [handleGlobalClick]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex min-h-screen flex-col">
       {/* Header */}
       <Header />
 
       {/* Main Content */}
-      <div className="container flex flex-col justify-center gap-8 lg:flex-row">
-        {/* Left - Map */}
-        <div className="w-full lg:w-2/3">
-          <div className="map-background relative block h-full w-full rounded-md">
-            <div className="border-cerulean top-[70px] left-[50px] mx-auto aspect-square w-full max-w-[1280px] rounded-2xl border-2 lg:absolute lg:w-3/4">
-              <Map
-                hoveredLocationId={hoveredLocationId}
-                setHoveredLocationId={setHoveredLocationId}
-                selectedLocationId={selectedLocationId}
-                setSelectedLocationId={setSelectedLocationId}
-                locations={locations}
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-              />
-            </div>
-          </div>
+      <main className="flex-grow">
+        {/* Map and Cards Section */}
+        <div className="container mx-auto flex flex-col justify-center gap-8 px-4 py-8 lg:flex-row">
+          <MapSection
+            hoveredLocationId={hoveredLocationId}
+            setHoveredLocationId={setHoveredLocationId}
+            selectedLocationId={selectedLocationId}
+            setSelectedLocationId={setSelectedLocationId}
+            locations={locations}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+          />
+
+          <LocationsSection
+            locations={locations}
+            hoveredLocationId={hoveredLocationId}
+            selectedLocationId={selectedLocationId}
+            setHoveredLocationId={setHoveredLocationId}
+            setSelectedLocationId={setSelectedLocationId}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+          />
         </div>
 
-        {/* Right - Cards */}
-        <div className="bg-sunshine w-full overflow-y-auto rounded-lg p-6 text-gray-800 lg:w-1/3">
-          <h2 className="font-display mb-4 text-center text-3xl font-bold text-blue-600">
-            Locations
-          </h2>
+        {/* Info Section */}
+        <InfoSection />
+      </main>
 
-          {locations.length > 0 ? (
-            locations.map((location) => (
-              <LocationCard
-                key={location._id}
-                location={location}
-                isHovered={hoveredLocationId === location._id}
-                isSelected={selectedLocationId === location._id}
-                setHoveredLocationId={setHoveredLocationId}
-                setSelectedLocationId={setSelectedLocationId}
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-              />
-            ))
-          ) : (
-            <p className="text-gray-500">No locations available.</p>
-          )}
-        </div>
-      </div>
+      {/* Footer */}
+      <FooterSection />
     </div>
   );
 }

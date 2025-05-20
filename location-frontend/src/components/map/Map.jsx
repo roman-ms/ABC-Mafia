@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import { GoogleMap, LoadScript, OverlayView } from "@react-google-maps/api";
-import { DialogComponent } from "./DialogComponent.jsx";
+import { DialogComponent } from "../dialog/DialogComponent.jsx";
 
 // Define the libraries array as a constant outside the component
 const libraries = ["places"];

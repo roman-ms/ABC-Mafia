@@ -14,7 +14,7 @@ const LocationsSection = ({
     <div
       className={`bg-sunshine w-full overflow-y-auto rounded-lg p-6 text-gray-800 lg:w-1/3 ${className}`}
     >
-      <h2 className="font-display mb-4 text-center text-3xl font-bold text-blue-600">
+      <h2 className="font-display mb-4 text-center text-3xl font-bold text-[#007fbd]">
         Locations
       </h2>
 

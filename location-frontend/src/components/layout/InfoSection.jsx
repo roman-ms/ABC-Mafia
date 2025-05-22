@@ -20,6 +20,57 @@ const InfoSection = () => {
           be a cubby location!
         </p>
 
+        {/* Donate Button */}
+        <div className="mb-12 flex justify-center">
+          <a
+            href="https://ko-fi.com/carecubby#payment-widget"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-vermilion hover:bg-vermilion/90 inline-block rounded-full px-6 py-2 font-semibold !text-white transition-colors duration-200"
+          >
+            Donate
+          </a>
+        </div>
+
+        {/* Rules of Conduct */}
+        <div className="mb-12 rounded-xl bg-white/10 p-6">
+          <h3 className="text-sunshine font-display mb-4 text-center text-2xl font-bold">
+            Code of Conduct
+          </h3>
+          <ul className="list-disc space-y-2 pl-4 text-sm">
+            <li className="pl-1">
+              Be respectful of cubby locations and their hours, codes of
+              conduct, and fellow patrons, and support their business or org
+              directly if you can do so!
+            </li>
+            <li className="pl-1">
+              If you are in a cubby location, please submit a photo of your
+              cubby location every 6 months to ensure that it's still in good
+              condition with supplies.
+            </li>
+            <li className="pl-1">
+              Since most locations will have fairly small storage units, larger
+              donations should be processed by contacting the admin of the cubby
+              by emailing (carecubbychicago@gmail.com).
+            </li>
+            <li className="pl-1">
+              Don't leave a mess when taking or donating things to the cubbies.
+            </li>
+            <li className="pl-1">
+              Do not donate any dangerous (sharp, biohazardous, or
+              malfunctioning) materials or items in unusably poor conditions to
+              care cubbies. We care about helping find stuff for a new home, but
+              some things belong in the trash. Check each individual letter
+              category for more specific details on what are acceptable
+              donations.
+            </li>
+            <li className="pl-1">
+              Check the location's additional info section to see the location's
+              hours, accessibility, and if they are trading any other items.
+            </li>
+          </ul>
+        </div>
+
         {/* Rules section */}
         <div className="mx-auto max-w-6xl space-y-8">
           {["A", "B", "C"].map((label, index) => {
@@ -46,18 +97,18 @@ const InfoSection = () => {
                   </h3>
                   <p className="mb-4 text-gray-700">{rules.description}</p>
                   <div className="mb-2">
-                    <h4 className="font-medium text-green-700">Do:</h4>
+                    <h4 className="font-medium text-green-700">Accepted:</h4>
                     <ul className="list-inside list-disc text-gray-700">
-                      {rules.dos.map((doItem, i) => (
-                        <li key={`do-${i}`}>{doItem}</li>
+                      {rules.accepted.map((item, i) => (
+                        <li key={`accepted-${i}`}>{item}</li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-medium text-red-700">Don't:</h4>
+                    <h4 className="font-medium text-red-700">Not Accepted:</h4>
                     <ul className="list-inside list-disc text-gray-700">
-                      {rules.donts.map((dontItem, i) => (
-                        <li key={`dont-${i}`}>{dontItem}</li>
+                      {rules.notAccepted.map((item, i) => (
+                        <li key={`notAccepted-${i}`}>{item}</li>
                       ))}
                     </ul>
                   </div>

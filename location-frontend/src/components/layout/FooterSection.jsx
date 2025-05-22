@@ -12,14 +12,6 @@ const FooterSection = () => {
         <p className="mb-4 text-sm">
           © {new Date().getFullYear()} All rights reserved
         </p>
-        <a
-          href="https://ko-fi.com/carecubby#payment-widget"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-vermilion hover:bg-vermilion/90 inline-block rounded-full px-6 py-2 font-semibold !text-white transition-colors duration-200"
-        >
-          Donate
-        </a>
       </div>
     </footer>
   );

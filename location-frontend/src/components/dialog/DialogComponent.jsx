@@ -20,7 +20,7 @@ export function DialogComponent({
   // Get the embed URL for Google Maps
   const getMapEmbedUrl = (location) => {
     if (!location?.latitude || !location?.longitude) return null;
-    return `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${location.latitude},${location.longitude}`;
+    return `https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${location.latitude},${location.longitude}`;
   };
 
   return (
@@ -83,21 +83,21 @@ export function DialogComponent({
               <div className="space-y-4">
                 <div>
                   <h4 className="text-lg font-semibold text-green-700">
-                    Do's:
+                    Accepted:
                   </h4>
                   <ul className="list-inside list-disc">
-                    {rules.dos.map((doItem, index) => (
-                      <li key={index}>{doItem}</li>
+                    {rules.accepted.map((item, index) => (
+                      <li key={index}>{item}</li>
                     ))}
                   </ul>
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-red-700">
-                    Don'ts:
+                    Not Accepted:
                   </h4>
                   <ul className="list-inside list-disc">
-                    {rules.donts.map((dontItem, index) => (
-                      <li key={index}>{dontItem}</li>
+                    {rules.notAccepted.map((item, index) => (
+                      <li key={index}>{item}</li>
                     ))}
                   </ul>
                 </div>

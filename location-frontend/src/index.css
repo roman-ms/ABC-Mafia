@@ -31,7 +31,7 @@ body {
 }
 
 .map-background {
-  background: url("map2.png");
+  background: url("/map2.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: 70%;
@@ -67,6 +67,6 @@ button:focus-visible {
 
 footer {
   p {
-    @apply text-lg py-4;
+    @apply py-4 text-lg;
   }
 }

@@ -7,7 +7,7 @@
     "description": "LGBT health and community center. Cubby is located on the 2nd floor next to the youth services center.",
     "latitude": 41.94905706587097,
     "longitude": -87.64960794328998,
-    "type": "A"
+    "type": "C"
   },
   {
     "_id": "ChIJ33YxJNXTD4gRWe6jz5NdNpo",
@@ -17,7 +17,7 @@
     "description": "A BIPOC run cafe. Cubby is located next to their free bookshelf near the entrance.",
     "latitude": 41.97329462291322,
     "longitude": -87.65719587116445,
-    "type": "B"
+    "type": "A"
   },
   {
     "_id": "ChIJt6mzLZ7SD4gR8bpjii62t_Q",
@@ -27,6 +27,6 @@
     "description": "Community focused pie shop. The cubby is located in their back garden area.",
     "latitude": 41.91898653835872,
     "longitude": -87.69660794754115,
-    "type": "C"
+    "type": "B"
   }
 ]

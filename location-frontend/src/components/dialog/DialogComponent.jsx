@@ -20,7 +20,7 @@ export function DialogComponent({
   // Get the embed URL for Google Maps
   const getMapEmbedUrl = (location) => {
     if (!location?.latitude || !location?.longitude) return null;
-    return `https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${location.latitude},${location.longitude}`;
+    return `https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=${location.latitude},${location.longitude}`;
   };
 
   return (

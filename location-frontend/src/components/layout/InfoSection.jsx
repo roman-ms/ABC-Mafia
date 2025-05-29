@@ -35,7 +35,7 @@ const InfoSection = () => {
         {/* Rules of Conduct */}
         <div className="mb-12 rounded-xl bg-white/10 p-6">
           <h3 className="text-sunshine font-display mb-4 text-center text-2xl font-bold">
-            Code of Conduct
+            Rules of Conduct
           </h3>
           <ul className="list-disc space-y-2 pl-4 text-sm">
             <li className="pl-1">

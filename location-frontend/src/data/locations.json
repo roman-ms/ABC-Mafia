@@ -28,5 +28,15 @@
     "latitude": 41.91898653835872,
     "longitude": -87.69660794754115,
     "type": "B"
+  },
+  {
+    "_id": "ChIJS1MHX3TND4gRQ2cYWevEBrE",
+    "name": "Fire Fly Fiber Arts",
+    "link": "https://www.fireflyfiberarts.com/?srsltid=AfmBOopqskiNAtewuaIryk9rKWqoFWdwWZU6_cgUlh-cMdoGM9FeI-lu",
+    "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",
+    "description": "Community focused pie shop. The cubby is located in their back garden area.",
+    "latitude": 41.9331634,
+    "longitude": -87.7145511,
+    "type": "C"
   }
 ]

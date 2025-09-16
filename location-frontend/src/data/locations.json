@@ -34,9 +34,39 @@
     "name": "Fire Fly Fiber Arts",
     "link": "https://www.fireflyfiberarts.com/?srsltid=AfmBOopqskiNAtewuaIryk9rKWqoFWdwWZU6_cgUlh-cMdoGM9FeI-lu",
     "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",
-    "description": "Community focused pie shop. The cubby is located in their back garden area.",
+    "description": " A sustainability focused sewing, yarn, and fiber arts store in Logan Square.",
     "latitude": 41.9331634,
     "longitude": -87.7145511,
     "type": "C"
+  },
+  {
+    "_id": "ChIJS1MHX3TND4gRQ2cYWevEBrE",
+    "name": "Goblin Market",
+    "link": "",
+    "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",
+    "description": "A queer-run comics and games store in Lakeview. Accessibility note the cubby is located in the basement that is only accessible via stairs.",
+    "latitude": 41.9338693,
+    "longitude": -87.660937,
+    "type": "C"
+  },
+  {
+    "_id": "ChIJS1MHX3TND4gRQ2cYWevEBrE",
+    "name": "Sidestreet Gallery",
+    "link": "",
+    "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",
+    "description": "An elgin based gallery and community space.",
+    "latitude": 42.0366858,
+    "longitude": -88.2821321,
+    "type": "A"
+  },
+  {
+    "_id": "ChIJS1MHX3TND4gRQ2cYWevEBrE",
+    "name": "Restoried Bookshop",
+    "link": "https://restoriedbookshop.com/",
+    "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",
+    "description": "An elgin based gallery and community space.",
+    "latitude": 41.965103,
+    "longitude": -87.708221,
+    "type": "A"
   }
 ]

@@ -13,7 +13,7 @@ const Map = ({
   isOpen,
   setIsOpen,
 }) => {
-  const defaultCenter = { lat: 41.95, lng: -87.6298 }; // Chicago
+  const defaultCenter = { lat: 41.93, lng: -87.66 }; // Moved down and left
   const mapRef = useRef(null);
   const popupRef = useRef(null);
   const [debouncedHoverId, setDebouncedHoverId] = useState(null);

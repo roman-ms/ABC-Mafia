@@ -40,9 +40,9 @@
     "type": "C"
   },
   {
-    "_id": "ChIJS1MHX3TND4gRQ2cYWevEBrE",
+    "_id": "ChIJDXffCP_SD4gR3yIv-N7XwDc",
     "name": "Goblin Market",
-    "link": "",
+    "link": "https://goblinmkt.com/",
     "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",
     "description": "A queer-run comics and games store in Lakeview. Accessibility note the cubby is located in the basement that is only accessible via stairs.",
     "latitude": 41.9338693,
@@ -50,9 +50,9 @@
     "type": "C"
   },
   {
-    "_id": "ChIJS1MHX3TND4gRQ2cYWevEBrE",
+    "_id": "ChIJC-2UNqYFD4gRY3RlvKAadrg",
     "name": "Sidestreet Gallery",
-    "link": "",
+    "link": "https://www.sidestreetstudioarts.org/?srsltid=AfmBOoqYzfUFfruDJPHTHA015UkZoHs7yYSU6WwXo6vpi21KAVhdPP9A",
     "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",
     "description": "An elgin based gallery and community space.",
     "latitude": 42.0366858,
@@ -60,7 +60,7 @@
     "type": "A"
   },
   {
-    "_id": "ChIJS1MHX3TND4gRQ2cYWevEBrE",
+    "_id": "ChIJmcmY6e_ND4gRACBr9y5zjw0",
     "name": "Restoried Bookshop",
     "link": "https://restoriedbookshop.com/",
     "location_link": "https://maps.app.goo.gl/sKtNwL1rvqTqjL8R9",

@@ -18,6 +18,8 @@ const Map = ({
   const popupRef = useRef(null);
   const [debouncedHoverId, setDebouncedHoverId] = useState(null);
   const [isPanning, setIsPanning] = useState(false);
+  const [isHoveringDistantLocation, setIsHoveringDistantLocation] =
+    useState(false);
 
   const mapContainerStyle = {
     width: "100%",
@@ -42,23 +44,61 @@ const Map = ({
     return () => clearTimeout(timer);
   }, [hoveredLocationId]);
 
-  // Function to center the map on a specific location with smooth panning
+  // Function to calculate distance between two coordinates (in miles)
+  const calculateDistance = useCallback((lat1, lng1, lat2, lng2) => {
+    const R = 3959; // Earth's radius in miles
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLng = ((lng2 - lng1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLng / 2) *
+        Math.sin(dLng / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }, []);
+
+  // Function to center the map on a specific location with smart panning
   const centerMapOnLocation = useCallback(
     (location) => {
       if (mapRef.current && location && !isPanning) {
-        setIsPanning(true);
-        mapRef.current.panTo({
-          lat: location.latitude,
-          lng: location.longitude,
-        });
+        // Check if location is within reasonable distance from Chicago center
+        const distance = calculateDistance(
+          defaultCenter.lat,
+          defaultCenter.lng,
+          location.latitude,
+          location.longitude,
+        );
 
-        // Reset panning state after animation completes
-        setTimeout(() => {
-          setIsPanning(false);
-        }, 300); // Match this with the CSS transition duration
+        // Only pan to locations that are far from Chicago (like Elgin)
+        if (distance > 15) {
+          if (!isHoveringDistantLocation) {
+            setIsHoveringDistantLocation(true);
+            setIsPanning(true);
+            mapRef.current.panTo({
+              lat: location.latitude,
+              lng: location.longitude,
+            });
+
+            setTimeout(() => {
+              setIsPanning(false);
+            }, 300);
+          }
+        } else {
+          // If hovering over a nearby location and we were on a distant one, return to Chicago
+          if (isHoveringDistantLocation) {
+            setIsHoveringDistantLocation(false);
+            setIsPanning(true);
+            mapRef.current.panTo(defaultCenter);
+            setTimeout(() => {
+              setIsPanning(false);
+            }, 300);
+          }
+        }
       }
     },
-    [isPanning],
+    [isPanning, calculateDistance, defaultCenter, isHoveringDistantLocation],
   );
 
   // UseEffect to center the map on hover or select
@@ -69,8 +109,30 @@ const Map = ({
 
     if (locationToCenter) {
       centerMapOnLocation(locationToCenter);
+    } else if (
+      !debouncedHoverId &&
+      !selectedLocationId &&
+      isHoveringDistantLocation
+    ) {
+      // If we're no longer hovering and we were on a distant location, pan back to Chicago
+      setIsHoveringDistantLocation(false);
+      if (mapRef.current && !isPanning) {
+        setIsPanning(true);
+        mapRef.current.panTo(defaultCenter);
+        setTimeout(() => {
+          setIsPanning(false);
+        }, 300);
+      }
     }
-  }, [debouncedHoverId, selectedLocationId, locations, centerMapOnLocation]);
+  }, [
+    debouncedHoverId,
+    selectedLocationId,
+    locations,
+    centerMapOnLocation,
+    isHoveringDistantLocation,
+    defaultCenter,
+    isPanning,
+  ]);
 
   // Memoize the map markers to prevent unnecessary re-renders
   const markers = useMemo(() => {
@@ -81,7 +143,7 @@ const Map = ({
         mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
       >
         <div
-          className={`map-marker flex h-14 w-14 cursor-pointer items-center justify-center overflow-hidden rounded-full border-4 transition-all duration-300 ease-in-out ${
+          className={`map-marker flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full border-3 transition-all duration-300 ease-in-out ${
             selectedLocationId === loc._id
               ? "z-10 scale-110 border-blue-600"
               : debouncedHoverId === loc._id
@@ -130,7 +192,7 @@ const Map = ({
             streetViewControl: false,
             fullscreenControl: false,
             maxZoom: 15,
-            minZoom: 10,
+            minZoom: 8,
             styles: [
               {
                 featureType: "poi",

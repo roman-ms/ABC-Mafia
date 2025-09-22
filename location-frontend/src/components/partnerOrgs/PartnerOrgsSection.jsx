@@ -10,13 +10,17 @@ const PartnerOrgsSection = ({ partnerOrgs, onClose }) => {
         style={{ backgroundColor: "#FFEFDC" }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between bg-[#339cc3] p-6 text-white">
+        <div
+          className="flex items-center justify-between p-6 text-white"
+          style={{ backgroundColor: "#008236" }}
+        >
           <h2 className="text-2xl font-bold">Partner Organizations</h2>
           <button
             onClick={onClose}
-            className="text-3xl font-bold text-white transition-colors duration-200 hover:text-gray-200"
+            className="hover:bg-opacity-80 rounded-full p-2 text-2xl font-bold text-white transition-all duration-200 hover:text-gray-200"
+            style={{ backgroundColor: "#008236" }}
           >
-            ×
+            ✕
           </button>
         </div>
 

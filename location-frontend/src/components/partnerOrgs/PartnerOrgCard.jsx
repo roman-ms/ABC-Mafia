@@ -14,6 +14,39 @@ const PartnerOrgCard = ({ org }) => {
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-md transition-shadow duration-200 hover:shadow-lg">
       <div className="flex h-full space-x-4">
+        {/* Image Circle */}
+        <div className="flex-shrink-0">
+          <div className="h-32 w-32 overflow-hidden rounded-full">
+            <img
+              src={`/partner-orgs/${org.id}.png`}
+              alt={`${org.name} logo`}
+              className="h-full w-full object-cover"
+              onLoad={() =>
+                console.log(`Image loaded: /partner-orgs/${org.id}.png`)
+              }
+              onError={(e) => {
+                console.log(
+                  `Image failed to load: /partner-orgs/${org.id}.png`,
+                );
+                e.target.style.display = "none";
+                e.target.nextSibling.style.display = "flex";
+              }}
+            />
+            <div
+              className="hidden h-full w-full items-center justify-center bg-gray-100 text-gray-400"
+              style={{ display: "none" }}
+            >
+              <svg className="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         {/* Content */}
         <div className="flex flex-1 flex-col space-y-3">
           <h3 className="text-xl font-semibold text-gray-800">{org.name}</h3>
@@ -36,11 +69,11 @@ const PartnerOrgCard = ({ org }) => {
             {shouldShowExpandButton && (
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="mt-1 flex items-center text-xs text-gray-500 transition-colors duration-200 hover:text-gray-700"
+                className="mt-1 flex items-center text-xs text-gray-400 transition-colors duration-200 hover:text-gray-600"
               >
-                {isExpanded ? "Show Less" : "Read More"}
+                {isExpanded ? "Less" : "More"}
                 <svg
-                  className={`ml-1 h-3 w-3 transition-transform duration-200 ${
+                  className={`ml-1 h-2 w-2 transition-transform duration-200 ${
                     isExpanded ? "rotate-180" : ""
                   }`}
                   fill="none"
@@ -79,39 +112,6 @@ const PartnerOrgCard = ({ org }) => {
               />
             </svg>
           </a>
-        </div>
-
-        {/* Image Circle */}
-        <div className="flex-shrink-0">
-          <div className="h-24 w-24 overflow-hidden rounded-full border-2 border-gray-200">
-            <img
-              src={`/partner-orgs/${org.id}.png`}
-              alt={`${org.name} logo`}
-              className="h-full w-full object-cover"
-              onLoad={() =>
-                console.log(`Image loaded: /partner-orgs/${org.id}.png`)
-              }
-              onError={(e) => {
-                console.log(
-                  `Image failed to load: /partner-orgs/${org.id}.png`,
-                );
-                e.target.style.display = "none";
-                e.target.nextSibling.style.display = "flex";
-              }}
-            />
-            <div
-              className="hidden h-full w-full items-center justify-center bg-gray-100 text-gray-400"
-              style={{ display: "none" }}
-            >
-              <svg className="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "The Artistic Alphabet Mafia",
+    "description": "The official silliest queer arts org in Chicago with a focus on providing accessible, affordable, sober, and fun creative spaces for local queer people who are also the lead organizers of this project.",
+    "website": "https://www.instagram.com/theartisticalphabetmafia/?hl=en",
+    "type": "Arts Organization",
+    "focus": "Queer Arts & Community"
+  },
+  {
+    "id": 2,
+    "name": "Parallel Play Chicago",
+    "description": "A grassroots community organization that seeks to center the joy and liberation of COVID-cautious, LGBTQIA+, immunocompromised + disabled individuals, and BIPOC through mutual aid, supply drives, and collaborative arts partnerships. We do this by hosting mask-required & virtual events that foster connection and build networks of care within our community, as well as distributing mutual aid resources. In April 2024, Parallel Play launched Dilly Dally, a mask-required mixer series for COVID-cautious queers (and allies). Each mixer is different, including activities like karaoke, crafts, bingo, variety shows, dance parties, even \"speed friend-ing\" with free PPE & harm reduction resources. We strive to create safe, inclusive, sensory-friendly spaces, and support a wide variety of mask-required events, mutual aid, community care networks, and distribution projects, such as the Care Cubby with TAAM.",
+    "website": "https://www.parallelplaychi.org/",
+    "type": "Community Organization",
+    "focus": "COVID-Cautious Community & Mutual Aid"
+  },
+  {
+    "id": 3,
+    "name": "Trash Goblins Inc",
+    "description": "A collective of cosplayers, D&D enthusiasts, and gamers who founded a 501(c)(3) that creates interactive, educational art programs. Our goblin brand of art is affordable, accessible, and for everyone, regardless of age, skill level, or economic status. We hope to empower humans of all ages to engage with the environment by transforming discarded materials into art, games, and cosplay. Together, we're building a community that fosters creativity, storytelling, and environmental stewardship.",
+    "website": "#",
+    "type": "501(c)(3) Nonprofit",
+    "focus": "Environmental Art & Education"
+  }
+]

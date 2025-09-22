@@ -1,16 +1,20 @@
 import { useEffect, useState, useCallback } from "react";
 import locationData from "../data/locations.json";
+import partnerOrgsData from "../data/partnerOrgs.json";
 import Header from "../components/base/Header.jsx";
 import MapSection from "../components/map/MapSection.jsx";
 import LocationsSection from "../components/locations/LocationsSection.jsx";
 import InfoSection from "../components/layout/InfoSection.jsx";
 import FooterSection from "../components/layout/FooterSection.jsx";
+import PartnerOrgsSection from "../components/partnerOrgs/PartnerOrgsSection.jsx";
 
 export default function Home({ onApplyClick }) {
   const [hoveredLocationId, setHoveredLocationId] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
   const [locations, setLocations] = useState(locationData);
   const [isOpen, setIsOpen] = useState(false);
+  const [isPartnerOrgsOpen, setIsPartnerOrgsOpen] = useState(false);
+  const [partnerOrgs, setPartnerOrgs] = useState(partnerOrgsData);
 
   // Global click handler to deselect location
   const handleGlobalClick = useCallback(
@@ -29,6 +33,16 @@ export default function Home({ onApplyClick }) {
     [selectedLocationId],
   );
 
+  // Handler for Partner Organizations button
+  const handlePartnerOrgsClick = useCallback(() => {
+    setIsPartnerOrgsOpen(true);
+  }, []);
+
+  // Handler for closing Partner Organizations
+  const handleClosePartnerOrgs = useCallback(() => {
+    setIsPartnerOrgsOpen(false);
+  }, []);
+
   // Add and remove global click listener
   useEffect(() => {
     document.addEventListener("click", handleGlobalClick);
@@ -40,7 +54,7 @@ export default function Home({ onApplyClick }) {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <Header />
+      <Header onPartnerOrgsClick={handlePartnerOrgsClick} />
 
       {/* Main Content */}
       <main className="flex-grow">
@@ -73,6 +87,14 @@ export default function Home({ onApplyClick }) {
 
       {/* Footer */}
       <FooterSection />
+
+      {/* Partner Organizations Modal */}
+      {isPartnerOrgsOpen && (
+        <PartnerOrgsSection
+          partnerOrgs={partnerOrgs}
+          onClose={handleClosePartnerOrgs}
+        />
+      )}
     </div>
   );
 }

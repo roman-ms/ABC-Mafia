@@ -27,7 +27,7 @@ const PartnerOrgsSection = ({ partnerOrgs, onClose }) => {
             communities across Chicago.
           </p>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-6">
             {partnerOrgs.map((org) => (
               <PartnerOrgCard key={org.id} org={org} />
             ))}
